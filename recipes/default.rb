@@ -14,7 +14,7 @@ end
 
 return unless node['current_user']
 
-directory "#{node['current_user']}/.profile.d" do
+directory ::File.join(::Dir.home(node['current_user']) ".profile.d") do
   action :create
   owner node['current_user']
   group node['current_user']

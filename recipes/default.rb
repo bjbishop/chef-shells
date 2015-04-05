@@ -8,8 +8,6 @@ end
 execute "update the global bashrc to include the profile.d directory" do
   action :run
   command "echo \"for s in \\$( ls /etc/profile.d/*.sh ); do . $s; done #profile.d written by chef\" >> /etc/bashrc"
-  user "root"
-  group "wheel"
   not_if "grep 'profile.d written by chef' /etc/bashrc"
 end
 
@@ -26,7 +24,6 @@ end
 execute "update the bashrc for user #{node['current_user']} to include the .profile.d directory" do
   action :run
   command "echo \"for s in \\$( ls ~/.profile.d/*.sh ); do . $s; done #profile.d written by chef\" >> ~/.bashrc"
-  owner node['current_user']
-  group node['current_user']
+  user node['current_user']
   not_if "grep 'profile.d written by chef' ~/.bashrc"
 end

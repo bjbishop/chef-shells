@@ -29,12 +29,3 @@ execute "update the local bashrc for user #{node['current_user']} to include the
   user node['current_user']
   not_if "grep 'profile.d written by chef' ~/#{file}"
 end
-
-file "raise the ulimit for duplicity" do
-  action :create
-  path ::File.join(::Dir.home(node['current_user']), ".profile.d", "ulimit.sh")
-  content "ulimit -n 1024"
-  owner node['current_user']
-  group node['current_user']
-  mode "0700"
-end
